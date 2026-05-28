@@ -30,3 +30,4 @@ body {
     from { transform: translateY(-33.3333%); }
     to { transform: translateY(0); }
 }
+@custom-variant dark (&:where(.dark, .dark *));
