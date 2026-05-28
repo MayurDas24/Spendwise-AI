@@ -125,5 +125,5 @@ npm run dev
 This project is licensed under the MIT License.
 
 <p align="center">
-  Made with ❤️ by <b>Mayur Das</b>
+  Made by <b>Mayur Das</b>
 </p>
