@@ -195,30 +195,30 @@ const Transactions = () => {
     };
 
     const tabs = [
-        { value: '', label: 'All', count: counts.all, badge: 'bg-slate-200 text-slate-700' },
-        { value: 'income', label: 'Income', count: counts.income, badge: 'bg-emerald-100 text-emerald-700' },
-        { value: 'expense', label: 'Expense', count: counts.expense, badge: 'bg-rose-100 text-rose-700' },
+        { value: '', label: 'All', count: counts.all, badge: 'bg-slate-200 text-slate-700 dark:text-slate-300' },
+       { value: 'income', label: 'Income', count: counts.income, badge: 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300' },
+        { value: 'expense', label: 'Expense', count: counts.expense, badge: 'bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300' },
     ];
 
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Transactions</h1>
-                    <p className="text-sm text-slate-500 mt-1.5">All your income and expenses</p>
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Transactions</h1>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5">All your income and expenses</p>
                 </div>
                 <Button onClick={onCreate}>
                     <Plus size={16} /> Add Transaction
                 </Button>
             </div>
 
-            <div className="bg-white rounded-3xl border border-slate-100 p-6">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-6">
                 <div className="mb-5 flex items-center justify-between gap-3">
                     <div>
-                        <h2 className="text-lg font-bold text-slate-900 tracking-tight">Transaction Trend</h2>
-                        <p className="text-xs text-slate-500 mt-1">Income vs expenses over time</p>
+                        <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Transaction Trend</h2>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Income vs expenses over time</p>
                     </div>
-                    <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-full shrink-0">
+                    <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-full shrink-0">
                         {[
                             { value: '30d', label: '30D' },
                             { value: '3m', label: '3M' },
@@ -230,8 +230,8 @@ const Transactions = () => {
                                 onClick={() => setTimeRange(r.value)}
                                 className={`px-3 py-1 rounded-full text-xs font-medium transition ${
                                     timeRange === r.value
-                                        ? 'bg-white shadow-sm text-slate-900'
-                                        : 'text-slate-600 hover:text-slate-900'
+                                        ? 'bg-white dark:bg-slate-900 shadow-sm text-slate-900 dark:text-white'
+                                        : 'text-slate-600 hover:text-slate-900 dark:text-white'
                                 }`}
                             >
                                 {r.label}
@@ -242,7 +242,7 @@ const Transactions = () => {
                 <TransactionTrendChart data={trendData} currency={currency} interval={chartInterval} />
             </div>
 
-            <div className="bg-white rounded-3xl border border-slate-100 p-5">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 p-5">
                 {!analysis ? (
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3 min-w-0">
@@ -250,8 +250,8 @@ const Transactions = () => {
                                 <Sparkles size={18} className="text-white" />
                             </div>
                             <div className="min-w-0">
-                                <h3 className="font-semibold text-slate-900">AI Spending Insight</h3>
-                                <p className="text-sm text-slate-500 truncate">
+                                <h3 className="font-semibold text-slate-900 dark:text-white">AI Spending Insight</h3>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 ">
                                     Get a quick analysis of the {transactions.length} transaction{transactions.length !== 1 ? 's' : ''} in this view
                                 </p>
                             </div>
@@ -281,14 +281,14 @@ const Transactions = () => {
                         </div>
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-2">
-                                <h3 className="font-semibold text-slate-900">AI Spending Insight</h3>
+                                <h3 className="font-semibold text-slate-900 dark:text-white">AI Spending Insight</h3>
                                 {analysis.highlight && (
                                     <span className="inline-flex items-center bg-violet-50 text-violet-700 text-xs font-medium px-2.5 py-0.5 rounded-full">
                                         {analysis.highlight}
                                     </span>
                                 )}
                             </div>
-                            <p className="text-sm text-slate-700 leading-relaxed">{analysis.insight}</p>
+                            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{analysis.insight}</p>
                             <button
                                 onClick={generateInsight}
                                 disabled={analysisLoading}
@@ -308,7 +308,7 @@ const Transactions = () => {
                 )}
             </div>
 
-            <div className="bg-white rounded-3xl border border-slate-100 p-5">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-5">
                 <div className="flex flex-col lg:flex-row lg:items-center gap-3 mb-5">
                     <div className="relative flex-1">
                         <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -320,15 +320,15 @@ const Transactions = () => {
                         />
                     </div>
 
-                    <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-full self-start lg:self-auto">
+                    <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-full self-start lg:self-auto">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.value || 'all'}
                                 onClick={() => setFilters({ ...filters, type: tab.value })}
                                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition flex items-center gap-2 ${
                                     filters.type === tab.value
-                                        ? 'bg-white shadow-sm text-slate-900'
-                                        : 'text-slate-600 hover:text-slate-900'
+                                       ? 'bg-white dark:bg-slate-900 shadow-sm text-slate-900 dark:text-white'
+                                        : 'text-slate-600 hover:text-slate-900 dark:text-white'
                                 }`}
                             >
                                 {tab.label}
@@ -342,7 +342,7 @@ const Transactions = () => {
                     <select
                         value={filters.categoryId}
                         onChange={(e) => setFilters({ ...filters, categoryId: e.target.value })}
-                        className="px-4 py-2 rounded-full border border-slate-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+                        className="px-4 py-2 rounded-full border border-slate-200 text-sm bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-violet-500"
                     >
                         <option value="">All categories</option>
                         {categories.map((c) => (
@@ -372,7 +372,7 @@ const Transactions = () => {
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead>
-                                <tr className="text-left text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-100">
+                                <tr className="text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-100">
                                     <th className="pb-4 pr-4">Category</th>
                                     <th className="pb-4 pr-4">Description</th>
                                     <th className="pb-4 pr-4">Date</th>
@@ -383,7 +383,7 @@ const Transactions = () => {
                             </thead>
                             <tbody className="divide-y divide-slate-100">
                                 {paginated.map((t) => (
-                                    <tr key={t.id} className="hover:bg-slate-50/60 transition">
+                                    <tr key={t.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition">
                                         <td className="py-4 pr-4">
                                             <CategoryBadge
                                                 name={t.category_name || 'Uncategorized'}
@@ -392,10 +392,10 @@ const Transactions = () => {
                                                 size="sm"
                                             />
                                         </td>
-                                        <td className="py-4 pr-4 text-sm text-slate-700">
+                                        <td className="py-4 pr-4 text-sm text-slate-700 dark:text-slate-300">
                                             {t.description || '—'}
                                         </td>
-                                        <td className="py-4 pr-4 text-sm text-slate-500 whitespace-nowrap">
+                                        <td className="py-4 pr-4 text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
                                             {formatDate(t.transaction_date)}
                                         </td>
                                         <td className="py-4 pr-4">
@@ -415,7 +415,7 @@ const Transactions = () => {
                                             <div className="flex items-center justify-end gap-1">
                                                 <button
                                                     onClick={() => onEdit(t)}
-                                                    className="p-1.5 hover:bg-slate-100 rounded-md text-slate-500 transition"
+                                                    className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md text-slate-500 dark:text-slate-400 transition"
                                                 >
                                                     <Pencil size={14} />
                                                 </button>
@@ -434,19 +434,19 @@ const Transactions = () => {
 
                         {totalPages > 1 && (
                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-5 pt-5 border-t border-slate-100">
-                                <div className="text-xs text-slate-500">
+                                <div className="text-xs text-slate-500 dark:text-slate-400">
                                     Showing{' '}
-                                    <span className="font-semibold text-slate-700">
+                                    <span className="font-semibold text-slate-700 dark:text-slate-300">
                                         {startIdx + 1}–{Math.min(startIdx + PAGE_SIZE, transactions.length)}
                                     </span>{' '}
                                     of{' '}
-                                    <span className="font-semibold text-slate-700">{transactions.length}</span>
+                                    <span className="font-semibold text-slate-700 dark:text-slate-300">{transactions.length}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <button
                                         onClick={() => setPage((p) => Math.max(1, p - 1))}
                                         disabled={safePage === 1}
-                                        className="h-8 w-8 flex items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                                       className="h-8 w-8 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition"
                                     >
                                         <ChevronLeft size={16} />
                                     </button>
@@ -462,7 +462,7 @@ const Transactions = () => {
                                                 className={`h-8 min-w-8 px-2.5 rounded-lg text-sm font-medium transition ${
                                                     safePage === p
                                                         ? 'bg-violet-600 text-white shadow-sm shadow-violet-500/30'
-                                                        : 'text-slate-600 hover:bg-slate-100'
+                                                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                                                 }`}
                                             >
                                                 {p}
@@ -472,7 +472,7 @@ const Transactions = () => {
                                     <button
                                         onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                         disabled={safePage === totalPages}
-                                        className="h-8 w-8 flex items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                                        className="h-8 w-8 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition"
                                     >
                                         <ChevronRight size={16} />
                                     </button>

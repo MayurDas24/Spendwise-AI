@@ -61,8 +61,8 @@ const Dashboard = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Dashboard</h1>
-                <p className="text-sm text-slate-500 mt-1.5">An overview of your finances this month</p>
+                <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Dashboard</h1>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5">An overview of your finances this month</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -95,24 +95,24 @@ const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-white rounded-3xl border border-slate-100 p-6">
+                <div className="lg:col-span-2 bg-white dark:bg-slate-900 dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-6">
                     <div className="mb-5">
                         <h2 className="text-lg font-bold text-slate-900 tracking-tight">Monthly Trend</h2>
-                        <p className="text-xs text-slate-500 mt-1">Income vs expenses, last 6 months</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Income vs expenses, last 6 months</p>
                     </div>
                     <MonthlyTrendChart data={trend} currency={currency} />
                 </div>
-                <div className="bg-white rounded-3xl border border-slate-100 p-6">
+                <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-6">
                     <div className="mb-5">
                         <h2 className="text-lg font-bold text-slate-900 tracking-tight">Top Categories</h2>
-                        <p className="text-xs text-slate-500 mt-1">Spending this month</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Spending this month</p>
                     </div>
                     <CategoryBreakdownChart data={breakdown} currency={currency} />
                 </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-100 p-6">
+                <div className="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 p-6">
                     <div className="mb-5 flex items-center justify-between">
                         <h2 className="text-lg font-bold text-slate-900 tracking-tight">Recent Transactions</h2>
                         <Link
@@ -124,13 +124,13 @@ const Dashboard = () => {
                         </Link>
                     </div>
                     {recent.length === 0 ? (
-                        <p className="text-sm text-slate-500 py-6 text-center">No transactions yet.</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400py-6 text-center">No transactions yet.</p>
                     ) : (
                         <div className="space-y-1">
                             {recent.map((t) => (
                                 <div
                                     key={t.id}
-                                    className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition"
+                                    className="flex items-center justify-between p-3 rounded-xl\ hover:bg-slate-50 dark:hover:bg-slate-800/60transition"
                                 >
                                     <div className="flex items-center gap-3 min-w-0">
                                         <CategoryBadge icon={t.category_icon} color={t.category_color} size="sm" />
@@ -138,7 +138,7 @@ const Dashboard = () => {
                                             <div className="text-sm font-medium text-slate-900 truncate">
                                                 {t.description || t.category_name || 'Untitled'}
                                             </div>
-                                            <div className="text-xs text-slate-500">
+                                            <div className="text-xs text-slate-500 dark:text-slate-400">
                                                 {t.category_name || 'Uncategorized'} · {formatDate(t.transaction_date)}
                                             </div>
                                         </div>
@@ -154,9 +154,9 @@ const Dashboard = () => {
                     )}
                 </div>
 
-                <div className="lg:col-span-5 bg-white rounded-3xl border border-slate-100 p-6">
+                <div className="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-6">
                     <div className="mb-5 flex items-center justify-between">
-                        <h2 className="text-lg font-bold text-slate-900 tracking-tight">Budget Status</h2>
+                        <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Budget Status</h2>
                         <Link
                             to="/budgets"
                             className="inline-flex items-center gap-1 text-sm font-medium text-violet-600 hover:text-violet-700 transition"
@@ -168,7 +168,7 @@ const Dashboard = () => {
 
                     {budgets.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-8 text-center">
-                            <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mb-3">
+                            <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-3">
                                 <Target size={20} className="text-slate-400" />
                             </div>
                             <p className="text-sm font-semibold text-slate-900 mb-1">No budgets yet</p>
@@ -184,7 +184,7 @@ const Dashboard = () => {
                                         <div className="text-2xl font-bold tracking-tight text-slate-900">
                                             {formatCurrency(totalSpent, currency)}
                                         </div>
-                                        <div className="text-xs text-slate-500 mt-0.5">
+                                        <div className="text-xs text-slate-500 dark:text-slate-400mt-0.5">
                                             of {formatCurrency(totalBudget, currency)} total
                                         </div>
                                     </div>
@@ -192,10 +192,10 @@ const Dashboard = () => {
                                         <div className="text-sm font-bold" style={{ color: aggColor }}>
                                             {aggPct.toFixed(0)}%
                                         </div>
-                                        <div className="text-[10px] text-slate-500">used</div>
+                                        <div className="text-[10px]text-slate-500 dark:text-slate-400">used</div>
                                     </div>
                                 </div>
-                                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                                     <div
                                         className="h-full rounded-full transition-all"
                                         style={{ width: `${Math.min(aggPct, 100)}%`, backgroundColor: aggColor }}
@@ -212,12 +212,12 @@ const Dashboard = () => {
                                     return (
                                         <div key={b.id}>
                                             <div className="flex justify-between items-center text-xs mb-1.5">
-                                                <span className="text-slate-700 font-medium truncate">{b.category_name}</span>
-                                                <span className="text-slate-500 shrink-0 ml-2 text-[11px]">
+                                                <span className="text-slate-700 dark:text-slate-300 font-medium truncate">{b.category_name}</span>
+                                                <span className="text-slate-500 dark:text-slate-400 shrink-0 ml-2 text-[11px]">
                                                     {formatCurrency(spent, currency)} / {formatCurrency(total, currency)}
                                                 </span>
                                             </div>
-                                            <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                            <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                                                 <div
                                                     className="h-full rounded-full transition-all"
                                                     style={{ width: `${pct}%`, backgroundColor: color }}
