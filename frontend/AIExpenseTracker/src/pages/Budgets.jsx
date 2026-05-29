@@ -131,8 +131,8 @@ const Budgets = () => {
         <div className="space-y-6">
             <div className="flex items-center justify-between gap-3">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Budgets</h1>
-                    <p className="text-sm text-slate-500 mt-1.5">
+                    <h1 >Budgets</h1>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5">
                         Set spending limits per category — AI scores each one automatically
                     </p>
                 </div>
@@ -140,7 +140,7 @@ const Budgets = () => {
                     <button
                         onClick={analyzeAll}
                         disabled={analyzing || budgets.length === 0}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-violet-200 bg-violet-50 text-violet-700 hover:bg-violet-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-500/10 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition"
                     >
                         {analyzing ? <Spinner size="sm" /> : <Sparkles size={14} />}
                         {analyzing ? 'Analyzing' : hasAnalyses ? 'Re-analyze' : 'Analyze'}
@@ -176,7 +176,7 @@ const Budgets = () => {
                         return (
                             <div
                                 key={b.id}
-                                className="bg-white rounded-3xl border border-slate-100 p-6 hover:border-slate-200 transition"
+                                className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-6 hover:border-slate-200 dark:hover:border-slate-700 transition"
                             >
                                 <div className="flex items-start justify-between mb-5">
                                     <CategoryBadge
@@ -187,34 +187,34 @@ const Budgets = () => {
                                     <div className="flex items-center gap-1">
                                         <button
                                             onClick={() => onEdit(b)}
-                                            className="p-1.5 hover:bg-slate-100 rounded-md text-slate-500 transition"
+                                            className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md text-slate-500 dark:text-slate-400 transition"
                                         >
                                             <Pencil size={14} />
                                         </button>
                                         <button
                                             onClick={() => onDelete(b.id)}
-                                            className="p-1.5 hover:bg-rose-50 rounded-md text-rose-500 transition"
+                                           className="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-md text-rose-500 transition"
                                         >
                                             <Trash2 size={14} />
                                         </button>
                                     </div>
                                 </div>
                                 <div className="mb-3 flex items-baseline justify-between">
-                                    <span className="text-3xl font-bold tracking-tight text-slate-900">
+                                    <span className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
                                         {formatCurrency(spent, currency)}
                                     </span>
-                                    <span className="text-sm text-slate-500">
+                                    <span className="text-sm text-slate-500 dark:text-slate-400">
                                         of {formatCurrency(total, currency)}
                                     </span>
                                 </div>
-                                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                                     <div
                                         className={`h-full ${barColor} transition-all`}
                                         style={{ width: `${pct}%` }}
                                     />
                                 </div>
                                 <div className="mt-2.5 flex items-center justify-between text-xs">
-                                    <span className="text-slate-500 capitalize">{b.period} · {pct.toFixed(0)}% used</span>
+                                    <span className="text-slate-500 dark:text-slate-400 capitalize">{b.period} · {pct.toFixed(0)}% used</span>
                                     <span className={over ? 'text-rose-600 font-medium' : 'text-slate-500'}>
                                         {over
                                             ? `Over by ${formatCurrency(spent - total, currency)}`
@@ -223,7 +223,7 @@ const Budgets = () => {
                                 </div>
 
                                 {analysis && style ? (
-                                    <div className="mt-4 pt-4 border-t border-slate-100">
+                                    <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                                         <div className="flex items-start gap-2.5">
                                             <div className={`shrink-0 h-6 w-6 rounded-full flex items-center justify-center ${style.bg}`}>
                                                 <style.Icon size={14} className={style.iconColor} />

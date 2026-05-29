@@ -17,9 +17,17 @@ const CategoryBadge = ({ name, icon, color, size = 'md' }) => {
                 className={`${box} rounded-lg flex items-center justify-center shrink-0`}
                 style={{ backgroundColor: baseColor + '1A' }}
             >
-                <Icon size={iconSize} style={{ color: baseColor }} />
+                <Icon
+                    size={iconSize}
+                    style={{ color: baseColor }}
+                />
             </div>
-            {name && <span className="font-medium text-slate-900 truncate">{name}</span>}
+
+            {name && (
+                <span className="font-medium text-slate-900 dark:text-slate-100 truncate">
+                    {name}
+                </span>
+            )}
         </div>
     );
 };

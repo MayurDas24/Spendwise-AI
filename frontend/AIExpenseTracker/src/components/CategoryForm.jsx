@@ -72,7 +72,7 @@ const CategoryForm = ({ initial, onSaved, onCancel }) => {
             )}
 
             <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Icon</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Icon</label>
                 <div className="grid grid-cols-8 gap-2">
                     {ICONS.map((name) => {
                         const Icon = lucideIconByName(name);
@@ -83,9 +83,9 @@ const CategoryForm = ({ initial, onSaved, onCancel }) => {
                                 type="button"
                                 onClick={() => setForm({ ...form, icon: name })}
                                 className={`h-10 rounded-lg border flex items-center justify-center transition ${
-                                    selected
-                                        ? 'border-violet-500 bg-violet-50 text-violet-700'
-                                        : 'border-slate-200 text-slate-600 hover:border-slate-300'
+                                   selected
+    ? 'border-violet-500 bg-violet-500/15 text-violet-400'
+    : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-500 bg-white dark:bg-slate-800'
                                 }`}
                             >
                                 <Icon size={18} />
@@ -104,7 +104,9 @@ const CategoryForm = ({ initial, onSaved, onCancel }) => {
                             type="button"
                             onClick={() => setForm({ ...form, color })}
                             className={`h-8 w-8 rounded-full transition ring-offset-2 ${
-                                form.color === color ? 'ring-2 ring-slate-900' : 'ring-0'
+                               form.color === color
+    ? 'ring-2 ring-slate-900 dark:ring-white'
+    : 'ring-0'
                             }`}
                             style={{ backgroundColor: color }}
                         />

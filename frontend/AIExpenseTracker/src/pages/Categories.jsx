@@ -66,8 +66,8 @@ const Categories = () => {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Categories</h1>
-                    <p className="text-sm text-slate-500 mt-1.5">Organize transactions by category</p>
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Categories</h1>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5">Organize transactions by category</p>
                 </div>
                 <Button onClick={onCreate}>
                     <Plus size={16} /> Add Category
@@ -91,27 +91,30 @@ const Categories = () => {
                         { label: 'Expense', items: expense },
                     ].map((group) => (
                         <div key={group.label}>
-                            <h2 className="font-semibold text-slate-900 mb-3">
-                                {group.label} <span className="text-slate-400 font-normal">({group.items.length})</span>
-                            </h2>
+                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+    {group.label}
+    <span className="text-slate-400 dark:text-slate-500 font-normal">
+        ({group.items.length})
+    </span>
+</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                                 {group.items.map((c) => (
                                     <div
                                         key={c.id}
-                                        className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 flex items-center justify-between"
+                                      className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm p-4 flex items-center justify-between transition hover:shadow-md dark:hover:border-slate-700"
                                     >
                                         <CategoryBadge name={c.name} icon={c.icon} color={c.color} />
                                         <div className="flex items-center gap-1.5">
                                             {c.is_default && <StatusPill variant="neutral">default</StatusPill>}
                                             <button
                                                 onClick={() => onEdit(c)}
-                                                className="p-1.5 hover:bg-slate-100 rounded-md text-slate-500 transition"
+                                                className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md text-slate-500 dark:text-slate-400 transition"
                                             >
                                                 <Pencil size={14} />
                                             </button>
                                             <button
                                                 onClick={() => onDelete(c.id)}
-                                                className="p-1.5 hover:bg-rose-50 rounded-md text-rose-500 transition"
+                                                className="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-md text-rose-500 transition"
                                             >
                                                 <Trash2 size={14} />
                                             </button>
