@@ -232,7 +232,7 @@ const Budgets = () => {
                                                 <span className={`inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-full ${style.bg} ${style.text} mb-1`}>
                                                     {style.label}
                                                 </span>
-                                                <p className="text-xs text-slate-600 leading-relaxed">{analysis.message}</p>
+                                                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{analysis.message}</p>
                                             </div>
                                         </div>
                                     </div>

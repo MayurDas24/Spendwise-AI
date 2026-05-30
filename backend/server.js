@@ -1,3 +1,4 @@
+//server.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -7,6 +8,7 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import budgetRoutes from "./routes/budgetRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import insightRoutes from "./routes/InsightRoutes.js";
+import aiChatRoutes from "./routes/aiChatRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -32,6 +34,7 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/budgets", budgetRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/insights", insightRoutes);
+app.use("/api/ai-chat", aiChatRoutes);
 // Start Server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

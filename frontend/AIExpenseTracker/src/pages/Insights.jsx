@@ -1,3 +1,4 @@
+//Frontend/src/pages/Insights.jsx
 import { useEffect, useMemo, useState } from 'react';
 import {
     Sparkles,
@@ -16,7 +17,7 @@ import EmptyState from '../components/EmptyState.jsx';
 import Spinner from '../components/Spinner.jsx';
 import InsightCard from '../components/InsightCard.jsx';
 import KpiCard from '../components/KpiCard.jsx';
-
+import AIChatAssistant from "../components/AIChatAssistant.jsx";
 const ActionCard = ({ title, description, icon: Icon, accentGradient, accentText, onClick, generating, lastGenerated }) => (
     <button
         onClick={onClick}
@@ -33,15 +34,15 @@ const ActionCard = ({ title, description, icon: Icon, accentGradient, accentText
                 <Sparkles size={16} className="text-slate-300 dark:text-slate-600 group-hover:text-violet-500 transition"/>
             )}
         </div>
-        <h3 className="text-lg font-bold text-slate-900 mb-1.5">{title}</h3>
-        <p className="text-sm text-slate-500 mb-5 leading-relaxed">{description}</p>
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1.5">{title}</h3>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">{description}</p>
         <div className="flex items-center justify-between">
             <span className={`inline-flex items-center gap-1.5 text-sm font-semibold ${accentText}`}>
                 {generating ? 'Analyzing...' : 'Generate Insight'}
                 {!generating && <ArrowRight size={14} className="group-hover:translate-x-0.5 transition" />}
             </span>
             {lastGenerated && (
-                <span className="text-xs text-slate-400">Last: {timeAgo(lastGenerated)}</span>
+                <span className="text-xs text-slate-400 dark:text-slate-500">Last: {timeAgo(lastGenerated)}</span>
             )}
         </div>
     </button>
@@ -169,20 +170,20 @@ const Insights = () => {
 
             <div>
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-lg font-bold text-slate-900 tracking-tight">Recent Analyses</h2>
+                    <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Recent Analyses</h2>
                     {!loading && insights.length > 0 && (
-                        <span className="text-xs text-slate-500">
+                        <span className="text-xs text-slate-500 dark:text-slate-400">
                             {insights.length} {insights.length === 1 ? 'analysis' : 'analyses'}
                         </span>
                     )}
                 </div>
 
                 {loading ? (
-                    <div className="bg-white rounded-3xl border border-slate-100 py-16 flex justify-center">
+                    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 py-16 flex justify-center">
                         <Spinner size="lg" />
                     </div>
                 ) : insights.length === 0 ? (
-                    <div className="bg-white rounded-3xl border border-slate-100">
+                    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800">
                         <EmptyState
                             icon={Sparkles}
                             title="No insights yet"
@@ -201,8 +202,8 @@ const Insights = () => {
                     </div>
                 )}
             </div>
+            <AIChatAssistant />
         </div>
     );
 };
-
 export default Insights;

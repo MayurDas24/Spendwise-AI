@@ -1,3 +1,4 @@
+//backend/controllers/transactionController.js
 import pool from "../db.js";
 import { analyzeTransactionsList } from "../utils/gemini.js";
 
@@ -303,7 +304,7 @@ export const analyzeTransactions = async (req, res) => {
 
     const currency = userRes.rows[0]?.currency || "USD";
 
-    const analysis = await analyzeTransactionList({
+    const analysis = await analyzeTransactionsList({
       transactions: result.rows,
       currency,
     });
@@ -314,6 +315,147 @@ export const analyzeTransactions = async (req, res) => {
 
     res.status(500).json({
       message: error.message || "Server error",
+    });
+  }
+};
+// ==============================
+// GET RECURRING TRANSACTIONS
+// ==============================
+
+export const getRecurringTransactions = async (req, res) => {
+  try {
+    const result = await pool.query(
+      `
+      SELECT
+        rt.*,
+        c.name AS category_name,
+        c.icon AS category_icon,
+        c.color AS category_color
+      FROM recurring_transactions rt
+      LEFT JOIN categories c
+        ON c.id = rt.category_id
+      WHERE rt.user_id = $1
+      ORDER BY rt.created_at DESC
+      `,
+      [req.userId]
+    );
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error("GetRecurringTransactions error:", error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};
+
+// ==============================
+// CREATE RECURRING TRANSACTION
+// ==============================
+
+export const createRecurringTransaction = async (req, res) => {
+  const {
+    categoryId,
+    amount,
+    type,
+    title,
+    description,
+    frequency,
+    startDate,
+  } = req.body;
+
+  if (
+    !amount ||
+    !type ||
+    !title ||
+    !frequency ||
+    !startDate
+  ) {
+    return res.status(400).json({
+      message: "Missing required fields",
+    });
+  }
+
+  try {
+    const result = await pool.query(
+      `
+      INSERT INTO recurring_transactions (
+        user_id,
+        category_id,
+        amount,
+        type,
+        title,
+        description,
+        frequency,
+        start_date,
+        next_run_date
+      )
+      VALUES (
+        $1,$2,$3,$4,$5,$6,$7,$8,$8
+      )
+      RETURNING *
+      `,
+      [
+        req.userId,
+        categoryId || null,
+        amount,
+        type,
+        title,
+        description || null,
+        frequency,
+        startDate,
+      ]
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("CreateRecurringTransaction error:", error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};
+
+// ==============================
+// DELETE RECURRING TRANSACTION
+// ==============================
+
+export const deleteRecurringTransaction = async (
+  req,
+  res
+) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      `
+      DELETE FROM recurring_transactions
+      WHERE id = $1
+        AND user_id = $2
+      RETURNING id
+      `,
+      [id, req.userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        message: "Recurring transaction not found",
+      });
+    }
+
+    res.json({
+      message: "Recurring transaction deleted",
+    });
+  } catch (error) {
+    console.error(
+      "DeleteRecurringTransaction error:",
+      error
+    );
+
+    res.status(500).json({
+      message: "Server error",
     });
   }
 };

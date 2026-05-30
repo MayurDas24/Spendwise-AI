@@ -1,8 +1,11 @@
+//backend/routes/insightRoutes.js
 import express from "express";
 
 import {
   getInsights,
   generateInsight,
+  askFinanceAssistant,
+  getChatHistory,
 } from "../controllers/insightController.js";
 
 import { protect } from "../middleware/authMiddleware.js";
@@ -26,5 +29,8 @@ router.get("/", getInsights);
 // =======================================
 
 router.post("/generate", generateInsight);
+router.post("/chat", askFinanceAssistant);
+router.get("/chat/history", getChatHistory);
 
 export default router;
+

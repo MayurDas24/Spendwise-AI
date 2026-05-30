@@ -83,3 +83,55 @@ CREATE TABLE ai_insights (
 
 CREATE INDEX idx_insights_user_created
 ON ai_insights(user_id, created_at DESC);
+
+CREATE TABLE recurring_transactions (
+    id SERIAL PRIMARY KEY,
+
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+
+    category_id INT REFERENCES categories(id) ON DELETE SET NULL,
+
+    type VARCHAR(10) NOT NULL
+    CHECK (type IN ('income', 'expense')),
+
+    amount NUMERIC(12,2) NOT NULL,
+
+    title VARCHAR(255) NOT NULL,
+
+    description TEXT,
+
+    frequency VARCHAR(20) NOT NULL
+    CHECK (
+        frequency IN (
+            'daily',
+            'weekly',
+            'monthly',
+            'quarterly',
+            'semi_annually',
+            'yearly'
+        )
+    ),
+
+    start_date DATE NOT NULL,
+
+    next_run_date DATE NOT NULL,
+
+    last_run_date DATE,
+
+    auto_create BOOLEAN DEFAULT TRUE,
+
+    is_active BOOLEAN DEFAULT TRUE,
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE ai_chat_messages (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+
+    role VARCHAR(10) NOT NULL CHECK (role IN ('user', 'assistant')),
+
+    message TEXT NOT NULL,
+
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);

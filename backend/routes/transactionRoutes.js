@@ -1,3 +1,4 @@
+//backend/routes/transactionRoutes.js
 import express from "express";
 import {
   getTransactions,
@@ -6,8 +7,12 @@ import {
   updateTransaction,
   deleteTransaction,
   analyzeTransactions,
-} from "../controllers/transactionController.js";
 
+  createRecurringTransaction,
+  getRecurringTransactions,
+  deleteRecurringTransaction,
+
+} from "../controllers/transactionController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -20,6 +25,18 @@ router.get("/", getTransactions);
 
 router.post("/", createTransaction);
 router.post("/analyze", analyzeTransactions);
+// ==============================
+// RECURRING TRANSACTIONS
+// ==============================
+
+router.get("/recurring/all", getRecurringTransactions);
+
+router.post("/recurring/create", createRecurringTransaction);
+
+router.delete(
+  "/recurring/:id",
+  deleteRecurringTransaction
+);
 router.get("/:id", getTransactionById);
 
 router.put("/:id", updateTransaction);

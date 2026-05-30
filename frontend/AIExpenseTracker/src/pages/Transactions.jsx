@@ -1,3 +1,4 @@
+//src/pages/Transactions.jsx
 import { useEffect, useMemo, useState } from 'react';
 import { Plus, Search, Pencil, Trash2, Wallet, Sparkles, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -13,6 +14,7 @@ import EmptyState from '../components/EmptyState.jsx';
 import Spinner from '../components/Spinner.jsx';
 import TransactionForm from '../components/TransactionForm.jsx';
 import TransactionTrendChart from '../components/charts/TransactionTrendChart.jsx';
+import RecurringTransactionForm from '../components/RecurringTransactionForm.jsx';
 
 const Transactions = () => {
     const { user } = useAuth();
@@ -21,7 +23,10 @@ const Transactions = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filters, setFilters] = useState({ search: '', type: '', categoryId: '' });
+
     const [modalOpen, setModalOpen] = useState(false);
+
+    const [recurringModalOpen, setRecurringModalOpen] = useState(false);
     const [editing, setEditing] = useState(null);
     const [analysis, setAnalysis] = useState(null);
     const [analysisLoading, setAnalysisLoading] = useState(false);
@@ -207,9 +212,21 @@ const Transactions = () => {
                     <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Transactions</h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5">All your income and expenses</p>
                 </div>
-                <Button onClick={onCreate}>
-                    <Plus size={16} /> Add Transaction
-                </Button>
+                <div className="flex items-center gap-3">
+  <Button
+    variant="outline"
+    className="dark:border-slate-700 dark:text-slate-200"
+    onClick={() => setRecurringModalOpen(true)}
+>
+    <Sparkles size={16} />
+    Recurring
+</Button>
+
+    <Button onClick={onCreate}>
+        <Plus size={16} />
+        Add Transaction
+    </Button>
+</div>
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-6">
@@ -240,6 +257,51 @@ const Transactions = () => {
                     </div>
                 </div>
                 <TransactionTrendChart data={trendData} currency={currency} interval={chartInterval} />
+                <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+    
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-5">
+        <div className="text-sm text-slate-500 dark:text-slate-400">
+            Monthly Recurring
+        </div>
+
+        <div className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">
+            ₹12,400
+        </div>
+
+        <div className="mt-1 text-xs text-emerald-600">
+            +2 active subscriptions
+        </div>
+    </div>
+
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-5">
+        <div className="text-sm text-slate-500 dark:text-slate-400">
+            Upcoming Deductions
+        </div>
+
+        <div className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">
+            5
+        </div>
+
+        <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            Next payment in 3 days
+        </div>
+    </div>
+
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-5">
+        <div className="text-sm text-slate-500 dark:text-slate-400">
+            Projected Savings
+        </div>
+
+        <div className="mt-2 text-2xl font-bold text-emerald-600">
+            ₹4,850
+        </div>
+
+        <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+            Based on recurring analysis
+        </div>
+    </div>
+
+</div>
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 p-5">
@@ -495,6 +557,20 @@ const Transactions = () => {
                     onCancel={() => setModalOpen(false)}
                 />
             </Modal>
+            <Modal
+    open={recurringModalOpen}
+    onClose={() => setRecurringModalOpen(false)}
+    title="Recurring Transaction"
+>
+    <RecurringTransactionForm
+        categories={categories}
+        onSaved={() => {
+            setRecurringModalOpen(false);
+            fetchData();
+        }}
+        onCancel={() => setRecurringModalOpen(false)}
+    />
+</Modal>
         </div>
     );
 };

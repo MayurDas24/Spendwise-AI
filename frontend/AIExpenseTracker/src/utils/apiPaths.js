@@ -1,3 +1,4 @@
+//src/utils/apiPaths.js
 export const API_PATHS = {
     AUTH: {
         REGISTER: '/auth/register',
@@ -17,6 +18,13 @@ export const API_PATHS = {
         UPDATE: (id) => `/transactions/${id}`,
         DELETE: (id) => `/transactions/${id}`,
         ANALYZE: '/transactions/analyze',
+
+        RECURRING_LIST: '/transactions/recurring/all',
+
+        RECURRING_CREATE: '/transactions/recurring/create',
+
+        RECURRING_DELETE: (id) =>
+         `/transactions/recurring/${id}`,
     },
     BUDGETS: {
         LIST: '/budgets',

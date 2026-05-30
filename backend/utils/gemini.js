@@ -100,7 +100,7 @@ Return ONLY valid JSON in this exact format:
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
       contents: prompt,
     });
 
@@ -166,7 +166,7 @@ Return ONLY valid JSON:
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+     model: "gemini-1.5-flash",
       contents: prompt,
     });
 
@@ -230,7 +230,7 @@ Return ONLY valid JSON:
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
       contents: prompt,
     });
 
@@ -279,7 +279,7 @@ Return ONLY valid JSON:
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+     model: "gemini-1.5-flash",
       contents: prompt,
     });
 
@@ -341,7 +341,7 @@ Return ONLY valid JSON:
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+    model: "gemini-1.5-flash",
       contents: prompt,
     });
 
@@ -361,10 +361,126 @@ Return ONLY valid JSON:
 // EXPORTS
 // ==============================
 
+
+// ==============================
+// AI FINANCE ASSISTANT
+// ==============================
+
+export const askGeminiFinanceAssistant =
+  async ({
+    question,
+    transactions,
+    recurring,
+    budgets,
+    currency = "USD",
+  }) => {
+    try {
+      const transactionText =
+        transactions?.length > 0
+          ? transactions
+              .map(
+                (t) =>
+                  `${t.type} | ${currency} ${
+                    t.amount
+                  } | ${
+                    t.category || "Uncategorized"
+                  } | ${
+                    t.description || ""
+                  }`
+              )
+              .join("\n")
+          : "No transactions";
+
+      const recurringText =
+        recurring?.length > 0
+          ? recurring
+              .map(
+                (r) =>
+                  `${r.title} | ${currency} ${
+                    r.amount
+                  } | ${r.frequency}`
+              )
+              .join("\n")
+          : "No recurring expenses";
+
+      const budgetText =
+        budgets?.length > 0
+          ? budgets
+              .map(
+                (b) =>
+                  `${b.category} Budget: ${currency} ${b.amount}`
+              )
+              .join("\n")
+          : "No budgets";
+
+      const prompt = `
+You are an elite AI financial advisor.
+
+You help users:
+- save money
+- understand spending
+- improve budgeting
+- detect bad habits
+- analyze recurring expenses
+- improve savings rate
+
+Be SPECIFIC.
+
+Use actual financial numbers.
+
+Do NOT give generic advice.
+
+Currency: ${currency}
+
+========================
+TRANSACTIONS
+========================
+
+${transactionText}
+
+========================
+RECURRING TRANSACTIONS
+========================
+
+${recurringText}
+
+========================
+BUDGETS
+========================
+
+${budgetText}
+
+========================
+QUESTION
+========================
+
+${question}
+
+Give a helpful financial answer.
+`;
+
+      const response =
+        await ai.models.generateContent({
+          model: "gemini-1.5-flash",
+          contents: prompt,
+        });
+
+      return response.text;
+    } catch (error) {
+      console.error(
+        "Finance assistant error:",
+        error
+      );
+
+      return "Unable to generate AI response right now.";
+    }
+  };
+
 export default {
   generateMonthlyInsight,
   generateBudgetAlert,
   generateSavingsTips,
   analyzeTransactionsList,
   analyzeBudgetList,
+  askGeminiFinanceAssistant,
 };

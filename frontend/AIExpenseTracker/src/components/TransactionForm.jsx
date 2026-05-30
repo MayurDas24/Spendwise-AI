@@ -1,3 +1,4 @@
+//src/components/TransactionForm.jsx
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import api from '../lib/axios.js';
@@ -100,11 +101,17 @@ const TransactionForm = ({ initial, categories, onSaved, onCancel }) => {
             </Select>
 
             <Input
-                label="Description"
-                placeholder="e.g. Coffee at Starbucks"
-                value={form.description}
-                onChange={(e) => setForm({ ...form, description: e.target.value })}
-            />
+             label="Description"
+             value={form.description}
+            onChange={(e) =>
+             setForm({ ...form, description: e.target.value })
+            }
+            placeholder={
+             form.type === 'income'
+            ? 'e.g. Freelance'
+            : 'e.g. Coffee / Tea / Groceries / Movies'
+    }
+/>
 
             <Input
                 label="Date"

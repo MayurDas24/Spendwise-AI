@@ -1,3 +1,4 @@
+//frontend/components/InsightCard.jsx
 import { useState } from 'react';
 import {
     ChevronDown,
